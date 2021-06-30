@@ -1,28 +1,22 @@
 package com.github.pgarr.bookies.dao.users;
 
-import com.github.pgarr.bookies.models.users.User;
+import com.github.pgarr.bookies.models.users.Privilege;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDAO {
+public class PrivilegeDAO {
+
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public User findByEmail(String email) {
+    public Privilege findByName(String name) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.createQuery("FROM User U WHERE U.email=:email", User.class)
-                .setParameter("email", email)
+        return session.createQuery("FROM Privilege R WHERE R.name=:name", Privilege.class)
+                .setParameter("name", name)
                 .getSingleResult();
     }
-
-    public User add(User user) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.save(user);
-        return user;
-    }
-
 }

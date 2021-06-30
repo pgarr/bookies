@@ -14,7 +14,6 @@ public class BookDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-
     public List<Book> getAll() {
         Session session = this.sessionFactory.getCurrentSession();
         return (List<Book>) session.createQuery("FROM Book B WHERE B.deleted is false").list();
@@ -22,7 +21,7 @@ public class BookDAO {
 
     public Book getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        return (Book) session.createQuery("FROM Book B WHERE B.deleted is false and B.id = :id")
+        return session.createQuery("FROM Book B WHERE B.deleted is false and B.id = :id", Book.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
