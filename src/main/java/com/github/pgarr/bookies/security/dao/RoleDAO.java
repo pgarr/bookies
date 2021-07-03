@@ -1,6 +1,6 @@
-package com.github.pgarr.bookies.dao.users;
+package com.github.pgarr.bookies.security.dao;
 
-import com.github.pgarr.bookies.models.users.Role;
+import com.github.pgarr.bookies.security.models.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +18,11 @@ public class RoleDAO {
         return session.createQuery("FROM Role R WHERE R.name=:name", Role.class)
                 .setParameter("name", name)
                 .getSingleResult();
+    }
+
+    public Role add(Role role) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.save(role);
+        return role;
     }
 }

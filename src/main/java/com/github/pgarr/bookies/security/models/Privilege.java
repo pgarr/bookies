@@ -1,4 +1,4 @@
-package com.github.pgarr.bookies.models.users;
+package com.github.pgarr.bookies.security.models;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -14,6 +14,10 @@ public class Privilege {
 
     @ManyToMany(mappedBy = "privileges")
     private Collection<Role> roles;
+
+    public Privilege(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;

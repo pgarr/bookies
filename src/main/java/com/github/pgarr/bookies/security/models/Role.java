@@ -1,4 +1,4 @@
-package com.github.pgarr.bookies.models.users;
+package com.github.pgarr.bookies.security.models;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -22,6 +22,10 @@ public class Role {
             inverseJoinColumns = @JoinColumn(
                     name = "privilege_id", referencedColumnName = "id"))
     private Collection<Privilege> privileges;
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;

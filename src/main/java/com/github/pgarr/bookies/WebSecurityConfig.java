@@ -1,6 +1,6 @@
 package com.github.pgarr.bookies;
 
-import com.github.pgarr.bookies.services.auth.UserService;
+import com.github.pgarr.bookies.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,10 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll() // TODO: correct permissions
+                .antMatchers("/*").permitAll() // TODO: correct permissions
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -46,7 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
-
     }
 
     @Bean

@@ -1,4 +1,4 @@
-package com.github.pgarr.bookies.models.users;
+package com.github.pgarr.bookies.security.models;
 
 import javax.persistence.*;
 import java.util.Collection;

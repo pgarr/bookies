@@ -1,6 +1,6 @@
-package com.github.pgarr.bookies.dao.users;
+package com.github.pgarr.bookies.security.dao;
 
-import com.github.pgarr.bookies.models.users.User;
+import com.github.pgarr.bookies.security.models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

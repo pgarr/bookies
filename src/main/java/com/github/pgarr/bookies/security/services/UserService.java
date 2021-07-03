@@ -1,10 +1,10 @@
-package com.github.pgarr.bookies.services.auth;
+package com.github.pgarr.bookies.security.services;
 
 
-import com.github.pgarr.bookies.dao.users.UserDAO;
-import com.github.pgarr.bookies.models.users.Privilege;
-import com.github.pgarr.bookies.models.users.Role;
-import com.github.pgarr.bookies.models.users.User;
+import com.github.pgarr.bookies.security.dao.UserDAO;
+import com.github.pgarr.bookies.security.models.Privilege;
+import com.github.pgarr.bookies.security.models.Role;
+import com.github.pgarr.bookies.security.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
