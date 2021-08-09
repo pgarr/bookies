@@ -5,7 +5,7 @@ import com.github.pgarr.bookies.security.dao.RoleDAO;
 import com.github.pgarr.bookies.security.dao.UserDAO;
 import com.github.pgarr.bookies.security.models.Privilege;
 import com.github.pgarr.bookies.security.models.Role;
-import com.github.pgarr.bookies.security.models.User;
+import com.github.pgarr.bookies.security.models.BookiesUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -34,6 +34,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private PasswordEncoder passwordEncoder;
 
     List<String> privilegesNames = Arrays.asList("PRIVILEGE_USER", "PRIVILEGE_LIBRARIAN", "PRIVILEGE_ADMIN");
+    //TODO: extract enum for roles and privileges
 
     @Override
     @Transactional
@@ -46,14 +47,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         Role adminRole = createRoleIfNotFound("ROLE_ADMIN", allPrivileges);
 
         // create initial user
-        User user = new User();
-        user.setFirstName("bookies");
-        user.setLastName("bookies");
-        user.setPassword(passwordEncoder.encode("test"));
-        user.setEmail("bookies@bookies.com");
-        user.setRoles(Arrays.asList(adminRole));
-        user.setEnabled(true);
-        userDAO.add(user);
+        BookiesUser bookiesUser = new BookiesUser();
+        bookiesUser.setFirstName("bookies");
+        bookiesUser.setLastName("bookies");
+        bookiesUser.setPassword(passwordEncoder.encode("test"));
+        bookiesUser.setEmail("bookies@bookies.com");
+        bookiesUser.setRoles(Arrays.asList(adminRole));
+        bookiesUser.setEnabled(true);
+        userDAO.add(bookiesUser);
 
         alreadySetup = true;
 

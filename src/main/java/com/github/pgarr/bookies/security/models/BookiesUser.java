@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class User {
+public class BookiesUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
