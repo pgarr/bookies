@@ -7,14 +7,13 @@ import com.github.pgarr.bookies.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -33,20 +32,23 @@ public class UserController {
 
     @PostMapping("/registration")
     public ModelAndView registerUserAccount(
-            @ModelAttribute("user") @Valid UserDTO userDto,
-            HttpServletRequest request,
-            Errors errors) {
+            @ModelAttribute("user") @Valid UserDTO userDTO, BindingResult bindingResult) {
 
-        try {
-            BookiesUser registered = userService.registerNewUserAccount(userDto);
-            // TODO: send email for verification
-        } catch (UserAlreadyExistException uaeEx) {
-            ModelAndView mav = new ModelAndView("registration", "user", userDto);
-            mav.addObject("message", "An account for that username/email already exists.");
-            // TODO: message locale (MessageSource)
-            return mav;
+        ModelAndView mav;
+        if (bindingResult.hasErrors()) {
+            mav = new ModelAndView("registration");
+        } else {
+            try {
+                BookiesUser registered = userService.registerNewUserAccount(userDTO);
+                // TODO: send email for verification
+                mav = new ModelAndView("successRegister");
+            } catch (UserAlreadyExistException uaeEx) {
+                mav = new ModelAndView("registration");
+                mav.addObject("message", "An account for that username/email already exists.");
+                // TODO: message locale (MessageSource)
+            }
         }
-
-        return new ModelAndView("successRegister", "user", userDto);
+        mav.addObject("user", userDTO);
+        return mav;
     }
 }
