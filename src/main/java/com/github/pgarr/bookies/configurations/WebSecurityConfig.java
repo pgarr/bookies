@@ -1,4 +1,4 @@
-package com.github.pgarr.bookies;
+package com.github.pgarr.bookies.configurations;
 
 import com.github.pgarr.bookies.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

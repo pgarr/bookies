@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="~{layout}">
 
 <head>
-	<title>Registration Confirmation</title>
+    <title>Registration Confirmation</title>
 </head>
 
 <body>
+<div layout:fragment="content">
+    <h2>User registered successfully!</h2>
 
-	<h2>User registered successfully!</h2>
+    <hr>
 
-	<hr>
-	
-	<a th:href="@{/user/login}">Login with new bookiesUser</a>
-	
+    <a th:href="@{/user/login}">Login with new bookiesUser</a>
+</div>
 </body>
 
 </html>

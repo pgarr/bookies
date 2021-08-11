@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Task List</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+
+<div layout:fragment="content">
+
+</div>
+
+<div th:insert="fragments/footer :: footer" class="footer">...</div>
+</body>
+</html>
