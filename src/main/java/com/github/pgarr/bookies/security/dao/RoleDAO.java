@@ -15,7 +15,7 @@ public class RoleDAO {
     public Role findByName(String name) {
         return entityManager.createQuery("FROM Role R WHERE R.name=:name", Role.class)
                 .setParameter("name", name)
-                .getSingleResult();
+                .getResultList().stream().findFirst().orElse(null);
     }
 
     public Role add(Role role) {

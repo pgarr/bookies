@@ -15,7 +15,7 @@ public class PrivilegeDAO {
     public Privilege findByName(String name) {
         return entityManager.createQuery("FROM Privilege R WHERE R.name=:name", Privilege.class)
                 .setParameter("name", name)
-                .getSingleResult();
+                .getResultList().stream().findFirst().orElse(null);
     }
 
     public Privilege add(Privilege privilege) {
