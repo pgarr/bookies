@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Register</h1>
-<form action="/user/registration" th:object="${user}" method="POST" enctype="utf8">
+<form th:action="@{/users/registration}" th:object="${user}" method="POST" enctype="utf8">
     <div>
         <label>First Name</label>
         <input th:field="*{firstName}"/>
@@ -35,6 +35,8 @@
         <label>Confirm Password</label>
         <input type="password" th:field="*{matchingPassword}"/>
     </div>
+    <p th:each="error: ${#fields.errors('global')}"
+       th:text="${error}">Validation error</p>
     <button type="submit">Submit</button>
 </form>
 
