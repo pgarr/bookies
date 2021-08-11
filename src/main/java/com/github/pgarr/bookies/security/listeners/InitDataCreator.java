@@ -1,15 +1,16 @@
-package com.github.pgarr.bookies.listeners;
+package com.github.pgarr.bookies.security.listeners;
 
 import com.github.pgarr.bookies.security.dao.PrivilegeDAO;
 import com.github.pgarr.bookies.security.dao.RoleDAO;
 import com.github.pgarr.bookies.security.dao.UserDAO;
+import com.github.pgarr.bookies.security.models.BookiesUser;
 import com.github.pgarr.bookies.security.models.Privilege;
 import com.github.pgarr.bookies.security.models.Role;
-import com.github.pgarr.bookies.security.models.BookiesUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -17,7 +18,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
+@Component
+public class InitDataCreator implements ApplicationListener<ContextRefreshedEvent> {
 
     boolean alreadySetup = false;
 
@@ -41,6 +43,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (alreadySetup) return;
 
+        setupDefaultRolesAndSuperUser();
+
+        alreadySetup = true;
+    }
+
+    private void setupDefaultRolesAndSuperUser() {
+        //TODO: add librarian and user
         List<Privilege> allPrivileges = createAllPrivilegesIfNotFound();
 
         // create initial roles
@@ -52,13 +61,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         bookiesUser.setLastName("bookies");
         bookiesUser.setPassword(passwordEncoder.encode("test"));
         bookiesUser.setEmail("bookies@bookies.com");
-        bookiesUser.setRoles(Arrays.asList(adminRole));
+        bookiesUser.setRoles(List.of(adminRole));
         bookiesUser.setEnabled(true);
         userDAO.add(bookiesUser);
-
-        alreadySetup = true;
-
-
     }
 
     private List<Privilege> createAllPrivilegesIfNotFound() {
@@ -69,8 +74,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         return privileges;
     }
 
-
-    @Transactional
     private Privilege createPrivilegeIfNotFound(String name) {
         Privilege privilege = privilegeDAO.findByName(name);
         if (privilege == null) {
@@ -80,7 +83,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         return privilege;
     }
 
-    @Transactional
     private Role createRoleIfNotFound(String name, Collection<Privilege> privileges) {
         Role role = roleDAO.findByName(name);
         if (role == null) {
