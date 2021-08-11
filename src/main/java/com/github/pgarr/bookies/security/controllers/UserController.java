@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,13 +40,14 @@ public class UserController {
             mav = new ModelAndView("registration");
         } else {
             try {
-                BookiesUser registered = userService.registerNewUserAccount(userDTO);
+                userService.registerNewUserAccount(userDTO);
                 // TODO: send email for verification
                 mav = new ModelAndView("successRegister");
             } catch (UserAlreadyExistException uaeEx) {
                 mav = new ModelAndView("registration");
-                mav.addObject("message", "An account for that username/email already exists.");
-                // TODO: message locale (MessageSource)
+                // TODO: error locale (MessageSource)
+                ObjectError error = new ObjectError("globalError", "An account for that email already exists.");
+                bindingResult.addError(error);
             }
         }
         mav.addObject("user", userDTO);
