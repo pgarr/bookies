@@ -49,21 +49,23 @@ public class InitDataCreator implements ApplicationListener<ContextRefreshedEven
     }
 
     private void setupDefaultRolesAndSuperUser() {
-        //TODO: add librarian and user
         List<Privilege> allPrivileges = createAllPrivilegesIfNotFound();
 
         // create initial roles
         Role adminRole = createRoleIfNotFound("ROLE_ADMIN", allPrivileges);
 
         // create initial user
-        BookiesUser bookiesUser = new BookiesUser();
-        bookiesUser.setFirstName("bookies");
-        bookiesUser.setLastName("bookies");
-        bookiesUser.setPassword(passwordEncoder.encode("test"));
-        bookiesUser.setEmail("bookies@bookies.com");
-        bookiesUser.setRoles(List.of(adminRole));
-        bookiesUser.setEnabled(true);
-        userDAO.add(bookiesUser);
+        String email = "bookies@bookies.com";
+        if (userDAO.findByEmail(email) == null) {
+            BookiesUser bookiesUser = new BookiesUser();
+            bookiesUser.setFirstName("bookies");
+            bookiesUser.setLastName("bookies");
+            bookiesUser.setPassword(passwordEncoder.encode("test"));
+            bookiesUser.setEmail(email);
+            bookiesUser.setRoles(List.of(adminRole));
+            bookiesUser.setEnabled(true);
+            userDAO.add(bookiesUser);
+        }
     }
 
     private List<Privilege> createAllPrivilegesIfNotFound() {
