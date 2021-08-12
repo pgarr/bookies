@@ -9,13 +9,13 @@
     <form th:action="@{/users/registration}" th:object="${user}" method="POST" enctype="utf8">
         <div>
             <label>First Name</label>
-            <input th:field="*{firstName}"/>
+            <input type="text" th:field="*{firstName}"/>
             <p th:each="error: ${#fields.errors('firstName')}"
                th:text="${error}">Validation error</p>
         </div>
         <div>
             <label>Last Name</label>
-            <input th:field="*{lastName}"/>
+            <input type="text" th:field="*{lastName}"/>
             <p th:each="error : ${#fields.errors('lastName')}"
                th:text="${error}">Validation error</p>
         </div>
