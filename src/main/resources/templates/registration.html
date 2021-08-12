@@ -6,7 +6,7 @@
 <body>
 <div layout:fragment="content">
     <h1>Register</h1>
-    <form th:action="@{/users/registration}" th:object="${user}" method="POST" enctype="utf8">
+    <form th:action="@{/registration}" th:object="${user}" method="POST" enctype="utf8">
         <div>
             <label>First Name</label>
             <input type="text" th:field="*{firstName}"/>
@@ -40,7 +40,7 @@
         <button type="submit">Submit</button>
     </form>
 
-    <a th:href="@{/login.html}">Login</a>
+    <a th:href="@{/login}">Login</a>
 </div>
 </body>
 </html>

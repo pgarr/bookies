@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +22,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
+
+//    @Autowired
+//    private AuthenticationSuccessHandler authenticationSuccessHandler;
+//
+//    @Autowired
+//    private LogoutSuccessHandler logoutSuccessHandler;
+//
+//    @Autowired
+//    private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
@@ -34,17 +46,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
                 .authorizeRequests()
                 .antMatchers("/*").permitAll() // TODO: correct permissions
                 .and()
+                // login
                 .formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/books")
+                .failureUrl("/login?error=true")
+//                .successHandler(authenticationSuccessHandler)
+//                .failureHandler(authenticationFailureHandler)
                 .permitAll()
                 .and()
-                .logout().permitAll()
+                // logout
+                .logout()
+                .logoutUrl("/perform_logout")
+                .invalidateHttpSession(false)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/books")
+//                .logoutSuccessHandler(logoutSuccessHandler)
+                .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/access-denied");
+                // exceptions
+                .exceptionHandling().accessDeniedPage("/access-denied"); // TODO
     }
 
     @Bean
