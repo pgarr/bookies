@@ -5,6 +5,7 @@ import com.github.pgarr.bookies.book.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,6 +17,11 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @GetMapping(value = "/")
+    public String getHomePage() {
+        return "redirect:/books";
+    }
+
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String getAll(Model model) {
         List<Book> books = bookService.getAll();
@@ -23,6 +29,4 @@ public class BookController {
 
         return "booksList";
     }
-
-
 }
