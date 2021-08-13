@@ -7,6 +7,26 @@
 
 <div layout:fragment="content">
     <h1>Books List</h1>
+    <table>
+        <tr>
+            <th>ISBN</th>
+            <th>TITLE</th>
+            <th>AUTHOR</th>
+            <th>YEAR</th>
+            <th>PUBLISHING HOUSE</th>
+            <th></th>
+        </tr>
+        <tr th:each="book : ${books}}">
+            <td th:text="${book.isbn}}">-</td>
+            <td th:text="${book.title}}">-</td>
+            <td th:text="${book.author}}">-</td>
+            <td th:text="${book.publishingYear}}">-</td>
+            <td th:text="${book.publishingHouse}}">-</td>
+            <td>
+                <a th:href="@{/books/details(bookId=${book.id})}">details</a>
+            </td>
+        </tr>
+    </table>
 </div>
 
 </body>

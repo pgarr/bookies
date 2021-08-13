@@ -18,10 +18,10 @@ public class Book {
     private String publishingYear;
     private int pagesNumber;
     private String libraryId;
-    private LocalDateTime addedTime;
+    private LocalDateTime addedTime; //TODO: auto
     private boolean deleted;
-    private LocalDateTime deletedTime;
-    private LocalDateTime updatedTime;
+    private LocalDateTime deletedTime; //TODO: auto
+    private LocalDateTime updatedTime; //TODO: auto
 
     public int getId() {
         return id;

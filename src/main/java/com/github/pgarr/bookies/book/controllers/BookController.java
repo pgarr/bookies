@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -28,5 +29,12 @@ public class BookController {
         model.addAttribute("books", books);
 
         return "booksList";
+    }
+
+    @RequestMapping(value = "/books/details", method = RequestMethod.GET)
+    public String get(Model model, @RequestParam("bookId") final int bookId) {
+        Book book = bookService.getById(bookId);
+        model.addAttribute("book", book);
+        return "bookDetails";
     }
 }
