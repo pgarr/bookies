@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Task List</title>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Bookies</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
+
 <div th:replace="fragments/header :: header">...</div>
-
-<div layout:fragment="content">
-
-</div>
-
+<div layout:fragment="content"></div>
 <div th:insert="fragments/footer :: footer" class="footer">...</div>
+
 </body>
 </html>

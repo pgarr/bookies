@@ -1,7 +1,7 @@
-package com.github.pgarr.bookies.services;
+package com.github.pgarr.bookies.book.services;
 
-import com.github.pgarr.bookies.dao.BookDAO;
-import com.github.pgarr.bookies.models.Book;
+import com.github.pgarr.bookies.book.dao.BookDAO;
+import com.github.pgarr.bookies.book.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

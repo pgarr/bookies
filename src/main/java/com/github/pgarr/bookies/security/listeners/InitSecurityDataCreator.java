@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Component
-public class InitDataCreator implements ApplicationListener<ContextRefreshedEvent> {
+public class InitSecurityDataCreator implements ApplicationListener<ContextRefreshedEvent> {
 
     boolean alreadySetup = false;
 

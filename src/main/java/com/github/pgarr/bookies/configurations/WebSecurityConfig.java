@@ -12,9 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -48,9 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/static/js/**", "/static/css/**").permitAll()
                 .antMatchers("/*").permitAll() // TODO: correct permissions
-                .and()
                 // login
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/perform_login")
@@ -59,18 +57,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .successHandler(authenticationSuccessHandler)
 //                .failureHandler(authenticationFailureHandler)
                 .permitAll()
-                .and()
                 // logout
+                .and()
                 .logout()
                 .logoutUrl("/perform_logout")
-                .invalidateHttpSession(false)
-                .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/books")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
 //                .logoutSuccessHandler(logoutSuccessHandler)
-                .permitAll()
-                .and()
-                // exceptions
-                .exceptionHandling().accessDeniedPage("/access-denied"); // TODO
+                //  exceptions
+//                .and()
+//                .exceptionHandling().accessDeniedPage("/access-denied") // TODO
+        ;
     }
 
     @Bean

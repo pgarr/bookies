@@ -5,8 +5,21 @@
     <title>Header</title>
 </head>
 <body>
+
 <div th:fragment="header">
-    <span>NAVBAR PLACEHOLDER</span>
+    <div class="navbar-button">
+        <a th:href="@{/books}">Books</a>
+    </div>
+    <div class="navbar-button">
+        <a th:href="@{/login}">Login</a>
+    </div>
+    <div class="navbar-button" sec:authorize="isAuthenticated()">
+        <form th:action="@{/perform_logout}" method="POST" enctype="utf8">
+            <span sec:authentication="name">Bob</span>
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 </div>
+
 </body>
 </html>

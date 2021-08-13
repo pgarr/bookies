@@ -1,4 +1,4 @@
-package com.github.pgarr.bookies.models;
+package com.github.pgarr.bookies.book.models;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

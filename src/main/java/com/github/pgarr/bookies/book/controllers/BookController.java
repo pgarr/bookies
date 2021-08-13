@@ -1,7 +1,7 @@
-package com.github.pgarr.bookies.controllers;
+package com.github.pgarr.bookies.book.controllers;
 
-import com.github.pgarr.bookies.models.Book;
-import com.github.pgarr.bookies.services.BookService;
+import com.github.pgarr.bookies.book.models.Book;
+import com.github.pgarr.bookies.book.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

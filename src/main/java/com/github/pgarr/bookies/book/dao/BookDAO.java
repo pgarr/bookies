@@ -1,6 +1,6 @@
-package com.github.pgarr.bookies.dao;
+package com.github.pgarr.bookies.book.dao;
 
-import com.github.pgarr.bookies.models.Book;
+import com.github.pgarr.bookies.book.models.Book;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
